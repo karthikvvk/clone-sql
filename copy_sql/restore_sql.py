@@ -1,13 +1,24 @@
 """
 This program is the second phase of "copy_sql" module.
 It restores the databases and it's structures using the text and csv files created by "copy_sql.py".
-It uses os, mysql conector, tkinter(for GUI), user built module(easy_sql, oopen).
+It uses os, mysql connector, tkinter(for GUI), user built module(easy_sql, oopen).
 """
+import os
+root_dir = os.getcwd()
+req_mods = {"easy_sql" : "sql_functions", "oopen" : "openeasy"}
+req_mods_lnk = {"sql_functions" : "https://github.com/karthikvvk/make-life-easy-python-packages-easy_sql/blob/main/make-life-easy-python-packages-easy_sql/sql_functions.py", "oopen" : "https://github.com/karthikvvk/make-life-easy-python-packages-oopen/blob/main/make-life-easy-python-packages-oopen/openeasy.py"}
+for hi in req_mods:
+    if os.path.exists(hi):
+        pass
+    else:
+        os.mkdir(hi)
+    open(f"{root_dir}\\{hi}\\{req_mods[hi]}.py", 'w').close()
+    open(f"{root_dir}\\{hi}\\__init__.py", 'w').close()
+    os.system(f"curl -o {root_dir}\\{hi}\\{req_mods[hi]}.py {req_mods_lnk[hi]}")
 import mysql.connector as c
 from tkinter import *
 import oopen.openeasy as op
-import easy_sql.sql_functions as es
-import os
+
 
 root = Tk()
 root.geometry('500x300')
