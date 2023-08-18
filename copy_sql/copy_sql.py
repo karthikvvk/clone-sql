@@ -4,23 +4,24 @@ It copies the databases and it's structures in the text and csv files created by
 It uses os, csv, runpy, mysql connector, tkinter(for GUI), user built module(easy_sql, oopen).
 """
 import os
+import urllib.request
+
 root_dir = os.getcwd()
 req_mods = {"easy_sql" : "sql_functions", "oopen" : "openeasy"}
-req_mods_lnk = {"sql_functions" : "https://github.com/karthikvvk/make-life-easy-python-packages-easy_sql/blob/main/make-life-easy-python-packages-easy_sql/sql_functions.py", "oopen" : "https://github.com/karthikvvk/make-life-easy-python-packages-oopen/blob/main/make-life-easy-python-packages-oopen/openeasy.py"}
+req_mods_lnk = {"easy_sql" : "https://github.com/karthikvvk/make-life-easy-python-packages-easy_sql/raw/main/make-life-easy-python-packages-easy_sql/sql_functions.py", "oopen" : "https://github.com/karthikvvk/make-life-easy-python-packages-oopen/raw/main/make-life-easy-python-packages-oopen/openeasy.py"}
 for hi in req_mods:
     if os.path.exists(hi):
         pass
     else:
         os.mkdir(hi)
-    open(f"{root_dir}\\{hi}\\{req_mods[hi]}.py", 'w').close()
     open(f"{root_dir}\\{hi}\\__init__.py", 'w').close()
-    os.system(f"curl -o {root_dir}\\{hi}\\{req_mods[hi]}.py {req_mods_lnk[hi]}")
+    urllib.request.urlretrieve(req_mods_lnk[hi], f"{root_dir}\\{hi}\\{req_mods[hi]}.py")
+
 import mysql.connector as c
 from tkinter import *
 import oopen.openeasy as op
 import easy_sql.sql_functions as es
 import runpy
-
 root = Tk()
 root.geometry('500x300')
 root.title('copy_sql')
